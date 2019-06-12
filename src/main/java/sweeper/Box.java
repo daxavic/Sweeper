@@ -9,8 +9,6 @@ public enum  Box
     NUM4,
     NUM5,
     NUM6,
-    NUM7,
-    NUM8,
     BOMB,
     OPENED,
     CLOSED,
