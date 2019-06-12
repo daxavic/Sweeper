@@ -25,7 +25,7 @@ public class Ranges {
         return allCoords;
     }
 
-    static Boolean inRange(Coord coord) {
+    public static Boolean inRange(Coord coord) {
         return coord.x >= 0 && coord.x < size.x &&
                 coord.y >= 0 && coord.y < size.y;
     }
@@ -36,7 +36,7 @@ public class Ranges {
 
     }
 
-    static ArrayList <Coord> getCoordAround(Coord coord) {
+    public static ArrayList <Coord> getCoordAround(Coord coord) {
     Coord around;
     ArrayList<Coord> list = new ArrayList <Coord>();
      int shift = coord.y % 2;
@@ -52,6 +52,7 @@ public class Ranges {
                      list.add(around);}
                 return list;
         }
+
 }
 
 
