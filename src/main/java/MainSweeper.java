@@ -3,11 +3,9 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import org.w3c.dom.ranges.Range;
+import sweeper.*;
 import sweeper.Box;
-import sweeper.Coord;
-import sweeper.Game;
-import sweeper.Ranges;
+
 
 public class MainSweeper extends JFrame {
     private Game game;
@@ -15,13 +13,12 @@ public class MainSweeper extends JFrame {
     private JPanel panel;
     private JLabel label;
 
-    private final int COLS = 9;
-    private final int ROWS = 9;
-    private final int BOMBS = 10;
+    private int COLS ;
+    private int ROWS ;
+    private int BOMBS;
     private final int IMAGE_SIZE = 56;
     private final int SHIFT_X = 28;
-    private final int SHIFT_Y = 12
-            ;
+    private final int SHIFT_Y = 12;
 
 
     public static void main(String[] args) {
@@ -29,6 +26,7 @@ public class MainSweeper extends JFrame {
     }
 
     private MainSweeper() {
+        initDialog(СommunicationUser.START);
         game = new Game(COLS , ROWS , BOMBS);
         game.start();
         Ranges.setSize(new Coord(COLS , ROWS));
@@ -38,8 +36,26 @@ public class MainSweeper extends JFrame {
         initFrame();
     }
 
+    private void initDialog(String text) {
+        JPanel jpanel = new JPanel();
+        String option = JOptionPane.showInputDialog(jpanel, text,
+                "Настройка", JOptionPane.QUESTION_MESSAGE);
+        String[] input = option.split("/");
+        try {
+            COLS = Integer.parseInt(input[0]);
+            ROWS = Integer.parseInt(input[1]);
+            BOMBS = Integer.parseInt(input[2]);
+            if (COLS < 2 || ROWS < 2 || BOMBS < 1) throw new NullPointerException();
+            if (BOMBS > COLS * ROWS / 2) {
+                JOptionPane.showMessageDialog(jpanel, СommunicationUser.ERROR_BOMBS);
+            }
+        } catch (RuntimeException e) {
+            initDialog(СommunicationUser.ERROR_MESSAGE);
+        }
+    }
+
     private void initLabel() {
-        label = new JLabel("Welcome!");
+        label = new JLabel(СommunicationUser._0);
         add(label , BorderLayout.SOUTH);
     }
 
@@ -84,19 +100,19 @@ public class MainSweeper extends JFrame {
     private String getMessage() {
         switch (game.getState()) {
             case PLAYED:
-                return "Think!";
+                return СommunicationUser._1;
             case BOMBED:
-                return "YOU LOSE!";
+                return СommunicationUser._3;
             case WINNER:
-                return "COUNGRATULATION!";
+                return СommunicationUser._2;
             default:
-                return "Welcome!";
+                return СommunicationUser._0;
         }
     }
 
     private void initFrame() {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Java Hexagon Sweeper");
+        setTitle("JAVA ШЕСТИУГОЛЬНЫЙ САПЁР");
         setResizable(false);
         setVisible(true);
         setIconImage(getImage("icon"));

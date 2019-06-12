@@ -54,7 +54,7 @@ class Flag
 
     void setOpenedToClosedBombBox(Coord coord)
     {
-      if (flagMap.get(coord) == Box.BOMB)
+      if (flagMap.get(coord) == Box.CLOSED)
           flagMap.set(coord, Box.OPENED);
 
     }

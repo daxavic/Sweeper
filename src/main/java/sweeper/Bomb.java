@@ -37,7 +37,7 @@ class Bomb
             Coord coord = Ranges.getRandomCoord();
             if (Box.BOMB == bombMap.get(coord))
                 continue;
-            bombMap.set(coord, Box.BOMB);
+            bombMap.set(new Coord(coord.x,coord.y), Box.BOMB);
             incNumbersaroundBomb(coord);
             break;
         }
